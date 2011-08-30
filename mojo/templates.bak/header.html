@@ -1,0 +1,72 @@
+<html>
+	<head>
+   	<title>Mojo - a frontend to Monkey Farm</title>
+   	<link rel="stylesheet" type="text/css" href="{{ css }}stylesheet.css" media="screen"> 
+	</head>
+    
+ 	<body>
+	<table width='100%' border='0' cellpadding='0' cellspacing='10'>
+		<tr>
+			<!-- Header/Banner -->
+			<td width='80%'>
+				<font face='tahoma' size='6'><b>Mojo:</b></font>
+				<font face='tahoma' size='5'>A Frontend to Monkey Farm</font>
+
+				<!-- Menu bar -->
+				<br>
+				<font face='tahoma' size='2'>
+				<a href="{{ url }}?project={{ project }}">Builds</a> |
+				<a href="{{ url }}tasks?project={{ project }}">Tasks</a> |
+				<a href="{{ url }}packages?project={{ project }}">Packages</a> |
+				<a href="{{ url }}tags?project={{ project }}">Tags</a> |
+				<a href="{{ url }}targets?project={{ project }}">Targets</a> |
+				<a href="{{ url }}systems?project={{ project }}">Systems</a> |
+				<a href="{{ url }}users?project={{ project }}">Users</a> |
+				<a href="{{ url }}groups?project={{ project }}">Groups</a>
+				</font>
+
+				<!-- Search box -->
+				<br><br>
+				<form name="input" action="{{ url }}search/" method="GET">
+					<input size='45' type="text" name="search">
+					<select name="type">
+						<option>build</option>
+						<option>package</option>
+						<option>system</option>
+						<option>tag</option>
+						<option>task</option>
+						<option>user</option>
+					</select>
+					<select name="project">
+						{% for p in project_list %}
+							{% if project == p.label %}
+								<option selected>{{ p.label }}</option>
+							{% else %}
+								<option>{{ p.label }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+					<input type="submit" value="Search" />
+				</form>
+
+				<!-- pixel divider -->
+				<img height='1' width='100%' src='{{ img }}/grey_pixel.png' />
+			</td>
+
+			<!-- project switcher -->
+			<td valign='top' align='right'>
+				<form name="input" action="." method="GET">
+					<font face='tahoma' size='1'><b>Current Projects:</b></font>
+					<select name="project">
+						{% for p in project_list %}
+							{% if project == p.label %}
+								<option selected>{{ p.label }}</option>
+							{% else %}
+								<option>{{ p.label }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+					<input type="submit" value="Go" />
+				</form>
+			</td>
+		</tr>

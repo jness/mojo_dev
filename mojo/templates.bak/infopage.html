@@ -1,0 +1,48 @@
+{% include 'header.html' %}
+<tr valign='top'>
+	<td>
+		<!-- start info-->
+		<table class='info' width='100%' cellpadding='2' cellspacing='5'>
+
+		{% for key, value in results %}
+  		<tr>
+			<td valign='top' width='215'>
+				<b>{{ key }}</b>
+			</td> 
+
+		<td>
+			{% if value %}
+	   	<!-- hard coded iter items -->
+	   	{% if key in 'releases|tags|tasks|groups|users|build_handlers|archs|branches|files|logs|sources|builds|comments' or key == 'configs' %}
+	      	{% for v in value %}
+
+	        	<!-- comment format -->
+					{% if key == 'comments' %}
+		  				<b>{{ v.user_label }}</b> @ {{ v.create_date }} (<b>karma:</b> {{ v.karma }})<br>
+		  				{{ v.comment }}<br><br>
+					
+					<!-- non comments -->
+					{% else %}
+		  				{{ v }}<br>
+	        		{% endif %}
+	      	{% endfor %}
+
+	   	<!-- single value objects -->
+			{% else %}
+
+	     		<!-- config needs to be console type -->
+	     		{% if key == 'config' %}
+					<pre>{{ value }}</pre>
+
+				<!-- everything else -->
+	     		{% else %}
+	       		{{ value }}
+	     		{% endif %}
+	   	{% endif %}
+			{% endif %}
+ 		</td>
+ 	</tr>
+ 	{% endfor %}
+	</table>
+</td>
+{% include 'footer.html' %}

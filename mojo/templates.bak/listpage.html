@@ -1,0 +1,39 @@
+{% include 'header.html' %}
+<tr valign='top'>
+	<td>
+		<table width='100%'>
+			<tr>    
+		 		<td><b>label</b></td>
+				<td><b>built by</b></td>
+				<td><b>tags</b></td>
+				<td align='right'><b>created</b></td>
+			</tr>
+    
+	    	{% for r in results %}
+			<tr bgcolor={% cycle "#F0F0F0" "#F8F8F8" %}
+				onmouseover="style.backgroundColor='#b6c5cd';"
+        		onmouseout="style.backgroundColor='{% cycle "#F0F0F0" "#F8F8F8" %}';">
+	 
+				<td>
+					<a href="{{ url }}{{ page }}info/{{ r.label }}?project={{ project }}">{{ r.label }}</a>
+				</td>
+	
+	    		<td>
+					<a href="{{ url }}userinfo/{{ r.user_label }}?project={{ project }}">{{ r.user_label }}</a>
+				</td>
+
+	    		<td>
+					{% for tag in r.tags %}
+						<a href="{{ url }}taginfo/{{ tag }}?project={{ project }}">{{ tag }}</a>
+					{% endfor %}
+				</td>
+
+	    		<td align='right'>
+					<font color='grey'>{{ r.create_date }}</font>
+				</td>
+			</tr>
+    		{% endfor %}
+
+    	</table>
+	</td>
+{% include 'footer.html' %}

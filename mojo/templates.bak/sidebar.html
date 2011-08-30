@@ -1,0 +1,39 @@
+<!-- right side bar -->
+	<td valign='top' align='center'>
+		<h4><font color='grey'>Builders Status</font></h4>
+			
+		<!-- fill in sidebar data -->
+		{% for system in systems %}
+			<table bgcolor='#F8F8F8' class='sidebar' width='75%' cellpadding='1' cellspacing='0'>
+				<tr bgcolor='#F0F0F0'>
+			   	<td><b>Builder:</b></td>
+			   	<td><a href="{{ url }}systeminfo/{{ system.label }}?project={{ project }}">{{ system.label }}</a></td>
+		   	</tr>
+
+				<tr>
+			   	<td><b>Online:</b></td>
+			   	<td>
+				   	{{ system.online }}
+					</td>
+			   </tr>
+				
+				<tr>
+			   	<td><b>Status:</b></td>
+			   	<td>
+				    	{{ system.status_label }}
+					</td>
+			   </tr>
+
+				<tr>
+			   	<td valign='top'><b>Tasks:</b></td>
+			   	<td valign='top'>{{ system.tasks|length}}</td>
+			   </tr>
+
+				<tr>
+			   	<td valign='top'><b>Load:</b></td>
+			  		<td valign='top'>{{ system.current_load}}/{{ system.max_load}}<br><br></td>
+				</tr>
+			</table>
+			{% endfor %}
+	</td>
+</tr>

@@ -1,0 +1,47 @@
+{% include 'header.html' %}
+
+<tr valign='top'>
+<td>
+<!-- start info-->
+<table class='info' width='100%' cellpadding='0' cellspacing='5'>
+
+  {% for key, value in results %}
+  <tr>
+     <td valign='top' width='215'><b>{{ key }}</b></td> 
+     <td>
+	{% if value %}
+
+	   <!-- hard coded iter items -->
+	   {% if key in 'releases|tags|tasks' %}
+	      {% for v in value %}
+
+		<!-- task list -->
+		{% if key == 'tasks' %}
+		   <a href='{{ url }}taskinfo/{{ v.0 }}?project={{ project }}'><font color='
+		      {% if v.1 in "BuildSuccess" %}
+			 #00CC00
+		      {% endif %}
+
+		      {% if v.1 in "BuildFail" %}
+			 red
+		      {% endif %}
+		     '>{{ v.0 }}</font></a><br>
+
+		 <!-- all other iter items -->
+  		 {% else %}
+		    {{ v }}<br>
+		{% endif %}
+	      {% endfor %}
+
+	   <!-- single value objects -->
+	   {% else %}
+	     {{ value }}
+	   {% endif %}
+	{% endif %}
+     </td>
+  </tr>
+  {% endfor %}
+  
+</table>
+</td>
+{% include 'footer.html' %}

@@ -1,0 +1,128 @@
+{% include 'header.html' %}
+
+<tr valign='top'>
+<td>
+<!-- start info-->
+<table class='info' width='100%' cellpadding='2' cellspacing='5'>
+
+  {% for key, value in results %}
+  <tr>
+     <td valign='top' width='215'><b>{{ key }}</b></td> 
+     <td>
+	{% if value %}
+
+	   <!-- hard coded iter items -->
+	   {% if key in 'releases|tags|tasks|groups|users|build_handlers|archs|branches|files|logs|sources|builds|comments' or key == 'configs' %}
+	      {% for v in value %}
+
+		<!-- task list -->
+		{% if key == 'tasks' %}
+		   <a href='{{ url }}taskinfo/{{ v.0 }}?project={{ project }}'><font color='
+		      {% if v.1 in "BuildSuccess" %}
+			 #00CC00
+		      {% endif %}
+
+		      {% if v.1 in "BuildFail" %}
+			 red
+		      {% endif %}
+		     '>{{ v.0 }}</font></a><br>
+
+		 <!-- all other iter items -->
+  		 {% else %}
+
+		  {% if key == 'comments' %}
+		    <b>{{ v.user_label }}</b> @ {{ v.create_date }} (<b>karma:</b> {{ v.karma }})<br>
+		    {{ v.comment }}<br><br>
+		  {% else %}
+
+		    {% if key == 'builds' %}
+		       <a href='{{ url }}buildinfo/{{ v }}?project={{ project }}'>
+		    {% endif %}
+
+		    {% if key == 'tags' %}
+		       <a href='{{ url }}taginfo/{{ v }}?project={{ project }}'>
+		    {% endif %}
+
+		    {% if key == 'groups' %}
+		       <a href='{{ url }}groupinfo/{{ v }}?project={{ project }}'>
+		    {% endif %}
+
+		    {% if key == 'users' %}
+		       <a href='{{ url }}userinfo/{{ v }}?project={{ project }}'>
+		    {% endif %}
+
+		    {% if key == 'branches' %}
+		       <a href='{{ url }}packagebranchinfo/{{ v }}?project={{ project }}'>
+		    {% endif %}
+
+		    {% if key == 'sources' %}
+		       <a href='https://mf-hub.rpmdev.rackspace.com/data/{{ result.fs_path }}/sources/{{ v }}'>
+		    {% endif %}
+
+		    {% if key == 'files' %}
+		       <a href='https://mf-hub.rpmdev.rackspace.com/data/{{ result.fs_path }}/files/{{ v }}'>
+		    {% endif %}
+
+		    {% if key == 'logs' %}
+		       <a href='https://mf-hub.rpmdev.rackspace.com/data/{{ result.fs_path }}/logs/{{ v }}'>
+		    {% endif %}
+
+		    {% if key == 'configs' %}
+		       <a href='https://mf-hub.rpmdev.rackspace.com/data/{{ result.fs_path }}/configs/{{ v }}'>
+		    {% endif %}
+
+		       {{ v }}</a><br>
+		{% endif %}
+		{% endif %}
+	      {% endfor %}
+
+	   <!-- single value objects -->
+	   {% else %}
+	     {% if key == 'config' %}
+		<pre>{{ value }}</pre>
+	     {% else %}
+
+		{% if key == 'user_label' %}
+		   <a href='{{ url }}userinfo/{{ value }}?project={{ project }}'>
+		{% endif %}
+
+		{% if key == 'group_label' %}
+		   <a href='{{ url }}groupinfo/{{ value }}?project={{ project }}'>
+		{% endif %}
+
+		{% if key == 'package_label' %}
+		   <a href='{{ url }}packageinfo/{{ value }}?project={{ project }}'>
+		{% endif %}
+
+		{% if key == 'package_branch_label' %}
+		   <a href='{{ url }}packagebranchinfo/{{ value }}?project={{ project }}'>
+		{% endif %}
+
+		{% if key == 'build_label' %}
+		   <a href='{{ url }}buildinfo/{{ value }}?project={{ project }}'>
+		{% endif %}
+
+		{% if key == 'target_label' %}
+		   <a href='{{ url }}targetinfo/{{ value }}?project={{ project }}'>
+		{% endif %}
+
+		    <font color='
+                    {% if value in "BuildSuccess" %}
+                         #00CC00
+                    {% endif %}
+
+                    {% if value in "BuildFail" %}
+                         red
+                    {% endif %}
+
+	     	'>{{ value }}</font></a>
+	     {% endif %}
+	   {% endif %}
+	{% endif %}
+     </td>
+  </tr>
+  {% endfor %}
+  
+</table>
+</td>
+{% include 'footer.html' %}

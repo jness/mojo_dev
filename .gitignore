@@ -1,0 +1,6 @@
+*.egg-info
+*.pyc
+*.swp
+django_mojo.sqlite
+mojo/settings.py
+mojo/static/*
