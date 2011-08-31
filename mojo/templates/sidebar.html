@@ -13,14 +13,22 @@
 				<tr>
 			   	<td><b>Online:</b></td>
 			   	<td>
-				   	{{ system.online }}
+						{% if system.online %}
+				   		<font color='#00CC00'>{{ system.online }}</font>
+						{% else %}
+				   		<font color='red'>{{ system.online }}</font>
+						{% endif %}
 					</td>
 			   </tr>
 				
 				<tr>
 			   	<td><b>Status:</b></td>
 			   	<td>
-				    	{{ system.status_label }}
+						{% if system.status_label == 'Enabled' %}
+					    	<font color='#00CC00'>{{ system.status_label }}</font>
+						{% else %}
+					    	<font color='red'>{{ system.status_label }}</font>
+						{% endif %}
 					</td>
 			   </tr>
 
