@@ -4,33 +4,90 @@
 		<table width='100%'>
 			<tr>    
 		 		<td><b>label</b></td>
-				<td><b>built by</b></td>
-				<td><b>tags</b></td>
-				<td align='right'><b>created</b></td>
+
+				<!-- build and task view -->
+				{% if viewtype in 'build|task' %}
+					<td><b>built by</b></td>
+					<td><b>tags</b></td>
+					<td align='right'><b>created</b></td>
+				{% endif %}
+
+				<!-- packages view -->
+				{% if viewtype == 'package' %}
+					<td><b>summary</b></td>
+				{% endif %}
+
+				<!-- targets, users, groups view -->
+				{% if viewtype in 'target|user|group' %}
+					<td width='75%'><b>display_name</b></td>
+				{% endif %}
+
+				<!-- tags view -->
+				{% if viewtype == 'tag' %}
+					<td width='75%'><b>builds</b></td>
+				{% endif %}
+
+				<!-- systems view -->
+				{% if viewtype == 'system' %}
+					<td width='75%'><b>hostname</b></td>
+				{% endif %}
 			</tr>
 
+			{% load status_color %}
 	    	{% for r in results %}
 			<tr bgcolor={% cycle "#F0F0F0" "#F8F8F8" %}
 				onmouseover="style.backgroundColor='#b6c5cd';"
         		onmouseout="style.backgroundColor='{% cycle "#F0F0F0" "#F8F8F8" %}';">
 	 
 				<td>
-					<a href="{{ url }}{{ viewtype }}/{{ r.label }}?project={{ project }}">{{ r.label }}</a>
-				</td>
-	
-	    		<td>
-					<a href="{{ url }}user/{{ r.user_label }}?project={{ project }}">{{ r.user_label }}</a>
+					<a href="{{ url }}{{ viewtype }}/{{ r.label }}?project={{ project }}">{{ r.label|status_color:r|safe }}</a>
 				</td>
 
-	    		<td>
-					{% for tag in r.tags %}
-						<a href="{{ url }}tag/{{ tag }}?project={{ project }}">{{ tag }}</a>
-					{% endfor %}
-				</td>
+				<!-- build and task view -->
+            {% if viewtype in 'build|task' %}	
+	    			<td>
+						<a href="{{ url }}user/{{ r.user_label }}?project={{ project }}">{{ r.user_label }}</a>
+					</td>
 
-	    		<td align='right'>
-					<font color='grey'>{{ r.create_date }}</font>
-				</td>
+		    		<td>
+						{% for tag in r.tags %}
+							<a href="{{ url }}tag/{{ tag }}?project={{ project }}">{{ tag }}</a>
+						{% endfor %}
+					</td>
+
+		    		<td align='right'>
+						<font color='grey'>{{ r.create_date }}</font>
+					</td>
+				{% endif %}
+
+				<!-- packages view -->
+            {% if viewtype in 'package' %}
+					<td>
+						{{ r.summary }}
+					</td>
+				{% endif %}
+
+				<!-- targets, users, groups view -->
+            {% if viewtype in 'target|user|group' %}
+					<td>
+						{{ r.display_name }}
+					</td>
+				{% endif %}
+
+				<!-- tags view -->
+            {% if viewtype == 'tag' %}
+					<td>
+						{{ r.builds|length }}
+					</td>
+				{% endif %}
+
+				<!-- system view -->
+            {% if viewtype == 'system' %}
+					<td>
+						{{ r.hostname }}
+					</td>
+				{% endif %}
+		
 			</tr>
     		{% endfor %}
 

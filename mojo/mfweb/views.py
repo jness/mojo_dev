@@ -20,6 +20,7 @@ def template_sort(results):
     mysort = (
                 'id',
                 'label',
+                'display_name',
                 'groups',
                 'source_name',
                 'build_label',
@@ -27,7 +28,6 @@ def template_sort(results):
                 'status_label',
                 'package_label',
                 'package_branch_label',
-                'display_name',
                 'create_date',
                 'start_date',
                 'update_date',

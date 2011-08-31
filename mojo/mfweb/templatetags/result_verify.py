@@ -14,6 +14,7 @@ def result_verify(value, key):
              'package_branch_label', 
              'archs',
              'tasks', 
+             'builds',
              'build_label', 
              'package_label', 
              'build_handlers',
