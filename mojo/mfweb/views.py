@@ -160,7 +160,7 @@ def get_mf_json(url, order=False, rev=False):
         request = urlopen(url).read()
     except HTTPError:
         # try removing project label
-        url = search('(.*)\?project_label=.*', url).group(1)
+        url = url.split('?')[0]
         try:
             request = urlopen(url).read()
         except HTTPError:

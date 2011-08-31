@@ -4,6 +4,7 @@
 		<!-- start info-->
 		<table class='info' width='100%' cellpadding='2' cellspacing='5'>
 
+		{% load result_verify %}
 		{% for key, value in results %}
   		<tr>
 			<td valign='top' width='215'>
@@ -13,31 +14,14 @@
 		<td>
 			{% if value %}
 	   	<!-- hard coded iter items -->
-	   	{% if key in 'releases|tags|tasks|groups|users|build_handlers|archs|branches|files|logs|sources|builds|comments' or key == 'configs' %}
+	   	{% if key in 'targets|releases|tags|tasks|groups|users|build_handlers|archs|branches|files|logs|sources|builds|comments' or key == 'configs' %}
 	      	{% for v in value %}
-
-	        	<!-- comment format -->
-					{% if key == 'comments' %}
-		  				<b>{{ v.user_label }}</b> @ {{ v.create_date }} (<b>karma:</b> {{ v.karma }})<br>
-		  				{{ v.comment }}<br><br>
-					
-					<!-- non comments -->
-					{% else %}
-		  				{{ v }}<br>
-	        		{% endif %}
+		  			{{ v|result_verify:key|safe }}<br>
 	      	{% endfor %}
 
 	   	<!-- single value objects -->
 			{% else %}
-
-	     		<!-- config needs to be console type -->
-	     		{% if key == 'config' %}
-					<pre>{{ value }}</pre>
-
-				<!-- everything else -->
-	     		{% else %}
-	       		{{ value }}
-	     		{% endif %}
+	       	{{ value|result_verify:key|safe }}
 	   	{% endif %}
 			{% endif %}
  		</td>
