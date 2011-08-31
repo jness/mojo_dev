@@ -54,10 +54,10 @@ def result_verify(value, key):
         return code
 
     # handle Success/Fail colors
-    elif value == 'BuildSuccess':
+    elif value == 'BuildSuccess' or value == 'Enabled':
         color = '<font color="#00CC00">%s</font>' % value
         return color
-    elif value == 'BuildFail':
+    elif value == 'BuildFail' or value == 'Disabled':
         color = '<font color="red">%s</font>' % value
         return color
 
