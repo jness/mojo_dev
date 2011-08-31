@@ -12,12 +12,15 @@ def result_verify(value, key):
              'user_label', 
              'group_label', 
              'package_branch_label', 
+             'archs',
              'tasks', 
              'build_label', 
              'package_label', 
              'build_handlers',
              'targets',
              'releases',
+             'project_label',
+             'vcs_handler_label',
              'distro_label',
              'build_handler_label')
 
